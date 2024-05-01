@@ -16,7 +16,7 @@ class User(SQLModel, table=True):
     name: str
     email: str
     password: str
-    budgets: List["BudgetTransaction"] = Relationship(back_populates="user")
+    budgets: List["Budget"] = Relationship(back_populates="user")
     transactions: List["FinancialTransaction"] = Relationship(back_populates="user")
 
 class UserInput(SQLModel):
@@ -36,3 +36,4 @@ class UserInput(SQLModel):
 class UserLogin(SQLModel):
     username: str
     password: str
+

@@ -9,12 +9,13 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import joinedload
 from sqlmodel import select
 from endpoints.user_endpoints import user_router
+from endpoints.finance_endpoints import finance_router
 
 from db.connection import *
 from typing_extensions import TypedDict
 app = FastAPI()
 app.include_router(user_router)
-
+app.include_router(finance_router)
 
 @app.get("/")
 def hello():
