@@ -56,12 +56,9 @@ def warriors_list(session=Depends(get_session)) -> List[Warrior]:
 
 @app.get("/warriors/{warrior_id}", response_model=WarriorResponse)
 def warriors_get(warrior_id: int, session=Depends(get_session)) -> WarriorResponse:
-    # Query the database to get the warrior information including the linked skills
-    # You can use your ORM of choice (e.g., SQLModel session)
     warrior = session.exec(select(Warrior).where(Warrior.id == warrior_id)).first()
     skills = session.exec(select(Skill).join(SkillWarriorLink).where(SkillWarriorLink.warrior_id == warrior.id)).all()
 
-    # Map the data to the response model
     response_data = WarriorResponse(
         id=warrior.id,
         name=warrior.name,

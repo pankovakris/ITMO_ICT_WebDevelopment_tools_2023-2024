@@ -7,7 +7,7 @@ theme:
   icon:
     repo: fontawesome/brands/github-alt
   palette:
-    - media: "(prefers-color-scheme: light)"
+    - media: "(prefers-color-scheme: dark)"
       scheme: default
       toggle:
         icon: material/lightbulb
@@ -46,3 +46,8 @@ nav:
   - index.md
   - "№1: Lab 1":
       - lab_1/practice_1_3.md
+      - lab_1/auth.md
+      - lab_1/finance_models.md
+      - lab_1/user_models.md
+      - lab_1/endpoints.md
+
