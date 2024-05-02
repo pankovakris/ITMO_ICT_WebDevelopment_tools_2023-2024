@@ -13,6 +13,6 @@ def select_all_users():
 
 def find_user(name):
     with Session(engine) as session:
-        statement = select(User).where(User.username == name)
+        statement = select(User).where(User.name == name)
         return session.exec(statement).first()
 

@@ -20,7 +20,7 @@ class User(SQLModel, table=True):
     transactions: List["FinancialTransaction"] = Relationship(back_populates="user")
 
 class UserInput(SQLModel):
-    username: str
+    name: str
     password: str = Field(max_length=256, min_length=6)
     password2: str
     email: EmailStr = Field(sa_column=Column(String, index=True, unique=True))
@@ -28,12 +28,13 @@ class UserInput(SQLModel):
 
     @field_validator('password2')
     def password_match(cls, v, values, **kwargs):
-        if 'password' in values and v != values['password']:
+        print(values)
+        if v != values.data['password']:
             raise ValueError('passwords don\'t match')
         return v
 
 
 class UserLogin(SQLModel):
-    username: str
+    name: str
     password: str
 

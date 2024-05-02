@@ -3,6 +3,9 @@ from sqlmodel import Field, Relationship, SQLModel
 from .user_models import *
 from datetime import datetime
 
+from .user_models import User
+
+
 class Budget(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
@@ -38,7 +41,7 @@ class FinancialTransaction(SQLModel, table=True):
     user: Optional[User] = Relationship(back_populates="transactions", sa_relationship_kwargs={"cascade": "delete"})
     category: Optional[Category] = Relationship(back_populates="transactions", sa_relationship_kwargs={"cascade": "delete"})
 
-class Goal(SQLModel):
+class Goal(SQLModel, table=True):
     id: int = Field(default=None, primary_key=True)
     description: str
     target_amount: float

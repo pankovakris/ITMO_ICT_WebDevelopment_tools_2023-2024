@@ -22,13 +22,40 @@ def get_budgets(session: Session = Depends(get_session)):
     budgets = session.exec(select(Budget)).all()
     return budgets
 
-@finance_router.get("/budget/{budget_id}")
+"""@finance_router.get("/budget/{budget_id}")
 def get_budget(budget_id: int, session: Session = Depends(get_session)):
     try:
         budget = session.get(Budget, budget_id)
         return budget
     except NoResultFound:
+        return {"message": "Budget not found"}"""
+
+
+@finance_router.get("/budgets/{budget_id}", response_model=dict)
+def get_budget_details(budget_id: int, session: Session = Depends(get_session)):
+    budget = session.get(Budget, budget_id)
+    if not budget:
         return {"message": "Budget not found"}
+
+    user = budget.user
+    budget_categories = session.exec(
+        select(BudgetCategory).where(BudgetCategory.budget_id == budget_id)
+    ).all()
+
+    caterogies = []
+
+    for bud in budget_categories:
+        category_id = bud.category_id
+        caterogies.append(session.exec(select(Category).where(Category.id == category_id)).first().dict())
+
+    budget_data = budget.dict()
+    user_data = user.dict() if user else None
+
+    budget_data["user"] = user_data
+    budget_data["categories"] = caterogies
+
+    return budget_data
+
 
 @finance_router.post("/budget")
 def create_budget(budget: Budget, session: Session = Depends(get_session)):
@@ -121,3 +148,6 @@ def create_goal(goal: Goal, session: Session = Depends(get_session)):
     session.commit()
     session.refresh(goal)
     return goal
+
+
+
