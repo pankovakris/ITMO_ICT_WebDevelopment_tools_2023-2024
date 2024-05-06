@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Security, security, Depends
+from fastapi import APIRouter, HTTPException, Security, security, Depends, FastAPI
 from fastapi.security import HTTPAuthorizationCredentials
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_201_CREATED,HTTP_404_NOT_FOUND
@@ -10,6 +10,10 @@ from repos.user_repos import select_all_users, find_user
 
 user_router = APIRouter()
 auth_handler = AuthHandler()
+
+app = FastAPI()
+user_router = APIRouter()
+app.include_router(user_router)
 
 
 @user_router.post('/registration', status_code=201, tags=['users'],

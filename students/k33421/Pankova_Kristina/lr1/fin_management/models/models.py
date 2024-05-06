@@ -43,6 +43,7 @@ class FinancialTransaction(SQLModel, table=True):
 
 class Goal(SQLModel, table=True):
     id: int = Field(default=None, primary_key=True)
+    name: str
     description: str
     target_amount: float
     user_id: int

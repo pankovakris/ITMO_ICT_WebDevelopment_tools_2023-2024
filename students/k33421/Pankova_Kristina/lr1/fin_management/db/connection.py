@@ -1,7 +1,12 @@
 from sqlmodel import SQLModel, Session, create_engine
 from models import *
+import os
+from dotenv import load_dotenv
 
-db_url = 'postgresql://postgres:1234@localhost:5432/finance_db'
+load_dotenv()
+
+
+db_url = os.getenv('DB_FINANCE')
 engine = create_engine(db_url, echo=True)
 
 
