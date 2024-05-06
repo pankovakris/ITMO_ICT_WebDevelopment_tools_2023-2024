@@ -53,13 +53,20 @@ def register(user: UserInput, session: Session = Depends(get_session)):
     session.commit()
     return JSONResponse(status_code=HTTP_201_CREATED, content='OK')
 
+
 @user_router.put('/change_password', tags=['users'])
-def change_password(new_password: str, current_user: User = Depends(auth_handler.get_current_user), session: Session = Depends(get_session)):
-    if not auth_handler.verify_password(new_password.password, current_user.password):
-        raise HTTPException(status_code=400, detail='Invalid current password')
+def change_password(new_password: str, token: str = None, session: Session = Depends(get_session)):
+    try:
+        username = auth_handler.decode_token(token)
+        user = find_user(username)
+        if user is None:
+            raise HTTPException(status_code=401, detail='Invalid token')
 
-    hashed_new_password = auth_handler.get_password_hash(new_password)
-    current_user.password = hashed_new_password
-    session.commit()
+        hashed_new_password = auth_handler.get_password_hash(new_password)
+        updated_user = User(name=user.name, password=hashed_new_password, email=user.email)
+        session.merge(updated_user)
+        session.commit()
 
-    return {'message': 'Password changed successfully'}
+        return {'message': 'Password changed successfully'}
+    except Exception as e:
+        raise HTTPException(status_code=401, detail='Invalid token or password change failed')

@@ -21,7 +21,7 @@ class BudgetCategory(SQLModel, table=True):
     category_id: Optional[int] = Field(default=None, foreign_key="category.id")
     budget: Optional[Budget] = Relationship(back_populates="categories", sa_relationship_kwargs={"cascade": "delete"})
     category: Optional["Category"] = Relationship(back_populates="budgets", sa_relationship_kwargs={"cascade": "delete"})
-    budget_amount: float  # Поле, характеризующее связь
+    budget_amount: float
 
 # Таблица категорий
 class Category(SQLModel, table=True):

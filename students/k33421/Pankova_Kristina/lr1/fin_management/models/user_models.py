@@ -24,11 +24,9 @@ class UserInput(SQLModel):
     password: str = Field(max_length=256, min_length=6)
     password2: str
     email: EmailStr = Field(sa_column=Column(String, index=True, unique=True))
-    is_seller: bool = False
 
     @field_validator('password2')
     def password_match(cls, v, values, **kwargs):
-        print(values)
         if v != values.data['password']:
             raise ValueError('passwords don\'t match')
         return v

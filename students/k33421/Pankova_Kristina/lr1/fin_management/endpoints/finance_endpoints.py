@@ -49,7 +49,7 @@ def get_budget_details(budget_id: int, session: Session = Depends(get_session)):
         caterogies.append(session.exec(select(Category).where(Category.id == category_id)).first().dict())
 
     budget_data = budget.dict()
-    user_data = user.dict() if user else None
+    user_data = user.dict(exclude={"password"}) if user else None
 
     budget_data["user"] = user_data
     budget_data["categories"] = caterogies
