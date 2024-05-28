@@ -20,7 +20,7 @@
     
     
       
-        <title>Пользовательские модели - Лабораторные работы</title>
+        <title>User models - Лабораторные работы</title>
       
     
     
@@ -121,7 +121,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Пользовательские модели
+              User models
             
           </span>
         </div>
@@ -365,14 +365,12 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
   <span class="md-ellipsis">
-    Пользовательские модели
+    User models
   </span>
   
 
@@ -383,7 +381,7 @@
         
   
   <span class="md-ellipsis">
-    Пользовательские модели
+    User models
   </span>
   
 
@@ -395,14 +393,21 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Содержание
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Пользовательские модели
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#userinput" class="md-nav__link">
@@ -476,14 +481,21 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Содержание
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Пользовательские модели
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#userinput" class="md-nav__link">
@@ -521,7 +533,9 @@
   
 
 
-<h1 id="_1">Пользовательские модели</h1>
+  <h1>User models</h1>
+
+<h2 id="_1">Пользовательские модели</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">SQLModel</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
