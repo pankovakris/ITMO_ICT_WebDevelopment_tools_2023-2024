@@ -9,11 +9,15 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import joinedload
 from sqlmodel import select
 from endpoints.user_endpoints import user_router
+from endpoints.finance_endpoints import fin_router
 
 from db.connection import *
-from typing_extensions import TypedDict
+
+from prometheus_fastapi_instrumentator import Instrumentator
+
 app = FastAPI()
 app.include_router(user_router)
+Instrumentator().instrument(app).expose(app)
 
 
 @app.get("/")

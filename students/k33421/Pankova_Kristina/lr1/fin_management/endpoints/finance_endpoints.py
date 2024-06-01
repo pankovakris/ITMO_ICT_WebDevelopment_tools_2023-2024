@@ -8,14 +8,15 @@ from models.user_models import *
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import joinedload
 from sqlmodel import select
-from endpoints.user_endpoints import user_router
 
 from db.connection import *
 from typing_extensions import TypedDict
-app = FastAPI()
-app.include_router(user_router)
+fin_router = APIRouter()
 
-user_router = APIRouter()
+app = FastAPI()
+app.include_router(fin_router)
+
+fin_router = APIRouter()
 auth_handler = AuthHandler()
 
 @app.get("/categories")
