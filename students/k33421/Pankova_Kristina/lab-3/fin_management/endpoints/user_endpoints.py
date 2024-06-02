@@ -2,7 +2,10 @@ from fastapi import APIRouter, HTTPException, Security, security, Depends
 from fastapi.security import HTTPAuthorizationCredentials
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_201_CREATED,HTTP_404_NOT_FOUND
-
+from fastapi import APIRouter, HTTPException
+from starlette.responses import JSONResponse
+from starlette.status import HTTP_200_OK, HTTP_500_INTERNAL_SERVER_ERROR
+import requests
 from authentification.auth import AuthHandler
 from db.connection import get_session
 from models.user_models import UserInput, User, UserLogin
@@ -42,3 +45,17 @@ def login(user: UserLogin):
 @user_router.get('/users/me', tags=['users'])
 def get_current_user(user: User = Depends(auth_handler.get_current_user)):
     return user
+
+parser_router = APIRouter()
+
+@parser_router.post("/parse", status_code=HTTP_200_OK)
+def parse_url(url: str):
+    try:
+        # Send the URL to the parser container
+        response = requests.post("http://parser:8000/parse", json={"url": url})
+        response.raise_for_status()
+
+        # Return the response from the parser
+        return JSONResponse(content=response.json())
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))

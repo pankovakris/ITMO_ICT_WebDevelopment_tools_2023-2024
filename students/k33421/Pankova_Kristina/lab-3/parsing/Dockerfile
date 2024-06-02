@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-WORKDIR /parser
+WORKDIR /parse
 COPY /requirements.txt .
 
 RUN apt-get update && apt-get install -y \
@@ -11,4 +11,3 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install --no-cache -r requirements.txt
 
-COPY task1.py .
