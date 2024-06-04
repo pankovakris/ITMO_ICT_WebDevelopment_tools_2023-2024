@@ -12,3 +12,6 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --no-cache -r requirements.txt
 
 COPY /fin_management/ .
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+

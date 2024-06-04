@@ -5,6 +5,7 @@ import psycopg2
 from bs4 import BeautifulSoup
 import re
 import time
+import os
 
 app = FastAPI()
 
@@ -28,11 +29,17 @@ urls = [
     'https://career.habr.com/vacancies?locations[]=c_699&s[]=1&s[]=75&s[]=6&s[]=77&s[]=7&s[]=83&s[]=8&s[]=85&s[]=73&s[]=9&s[]=86&sort=date&type=all&with_salary=true'
 ]
 
+#db_host = os.getenv("DB_HOST", "host.docker.internal") если хотим достучаться до локальной бд вне докера
+db_host = os.getenv("DB_HOST", "0.0.0.0")
+db_name = os.getenv("DB_NAME", "finance_db")
+db_user = os.getenv("DB_USER", "postgres")
+db_password = os.getenv("DB_PASSWORD", "1234")
+
 conn = psycopg2.connect(
-    host="localhost",
-    database="finance_db",
-    user="postgres",
-    password="1234"
+    host=db_host,
+    database=db_name,
+    user=db_user,
+    password=db_password
 )
 c = conn.cursor()
 

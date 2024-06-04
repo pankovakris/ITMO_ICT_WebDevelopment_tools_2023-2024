@@ -1,20 +1,6 @@
 version: '3'
 
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    environment:
-      DB_HOST: db
-      DB_NAME: finance_db
-      DB_USER: postgres
-      DB_PASSWORD: 1234
-    depends_on:
-      - db
-
   parser:
     build:
       context: .
