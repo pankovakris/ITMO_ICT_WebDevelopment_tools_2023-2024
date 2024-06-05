@@ -4,6 +4,9 @@ WORKDIR /app_parse
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install celery
+ENV PATH="/usr/local/bin:${PATH}"
+
 
 COPY ./main.py .
 

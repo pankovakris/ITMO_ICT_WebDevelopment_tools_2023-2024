@@ -10,10 +10,13 @@ from authentification.auth import AuthHandler
 from db.connection import get_session
 from models.user_models import UserInput, User, UserLogin
 from repos.user_repos import select_all_users, find_user
+from fastapi import APIRouter, HTTPException, status
+from starlette.status import HTTP_200_OK
+from typing import Dict
+from celery import Celery
 
 user_router = APIRouter()
 auth_handler = AuthHandler()
-
 
 @user_router.post('/registration', status_code=201, tags=['users'],
                   description='Register new user')
@@ -62,3 +65,36 @@ def parse_url(url: str):
         return JSONResponse(content=response.json())
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
+
+app = Celery('tasks', broker=CELERY_BROKER_URL, backend=CELERY_RESULT_BACKEND)
+app.conf.update(from_object='config')
+
+@app.task
+def parse_url_cel(url):
+    """
+    Задача для парсинга URL в фоновом режиме.
+    """
+    print(f"Parsing URL: {url}")
+    url = "http://parser:8001/parse"
+    response = requests.post(url, json={"url": url})
+    response.raise_for_status()
+    return "Parsing completed"
+
+@parser_router.post("/parse_celery", status_code=status.HTTP_200_OK)
+async def parse_url(url: str) -> Dict[str, str]:
+    try:
+        # Отправляем задачу на выполнение в Celery
+        task = parse_url_cel.delay(url)
+
+        # Возвращаем ответ с информацией о начале выполнения задачи
+        return {"task_id": task.id, "status": "Task started"}
+
+    except Exception as e:
+        raise Exception
+
+

@@ -66,3 +66,5 @@ uvicorn==0.27.1
 watchdog==4.0.0
 yarl==1.9.4
 zipp==3.18.1
+celery==5.4.0
+redis==5.0.4
