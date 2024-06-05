@@ -52,7 +52,10 @@ parser_router = APIRouter()
 def parse_url(url: str):
     try:
         # Send the URL to the parser container
-        response = requests.post("http://parser:8000/parse", json={"url": url})
+        url = "http://parser:8001/parse"
+        print(url)
+        response = requests.post(url, json={"url": url})
+
         response.raise_for_status()
 
         # Return the response from the parser

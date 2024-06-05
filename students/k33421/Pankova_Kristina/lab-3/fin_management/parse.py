@@ -50,9 +50,8 @@ def parse_and_save(url):
             s = 100000
         print(vac.text, s)
         c.execute("INSERT INTO financialtransaction (description, amount, user_id) VALUES (%s, %s, %s)", (str(vac.text), re.findall(r'\d+', str(s))[0], 2))
-    title = soup.title.string
     conn.commit()
-    print(f"Сохранен титул '{title}' из {url}")
+    print(f"Сохранен")
 
 def main():
     start_time = time.time()

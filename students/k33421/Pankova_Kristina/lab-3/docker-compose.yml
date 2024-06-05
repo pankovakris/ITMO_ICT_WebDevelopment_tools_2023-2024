@@ -2,9 +2,8 @@ version: '3'
 
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: finimage:latest
+
     ports:
       - "8000:8000"
     environment:
@@ -14,13 +13,14 @@ services:
       DB_PASSWORD: 1234
     depends_on:
       - db
+    networks:
+      - my_network
 
   parser:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    container_name: parser
+    image: parsimage:latest
     ports:
-      - "8093:8001"
+      - "8001:8001"
     environment:
       DB_HOST: db
       DB_NAME: finance_db
@@ -44,7 +44,6 @@ services:
     volumes:
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres:/var/lib/postgresql/data
-#    command: ["/bin/bash", "-c", "psql -U postgres -f /docker-entrypoint-initdb.d/init.sql"]
 
 volumes:
   postgres:
