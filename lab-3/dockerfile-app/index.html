@@ -9,8 +9,10 @@
       
       
       
-        <link rel="prev" href="../fastapi_dockerfile/">
+        <link rel="prev" href="../docker-compose/">
       
+      
+        <link rel="next" href="../dockerfile-parse/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -18,7 +20,7 @@
     
     
       
-        <title>Parser dockerfile - Лабораторные работы</title>
+        <title>App dockerfile - Лабораторные работы</title>
       
     
     
@@ -82,6 +84,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#app-dockerfile" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -114,7 +121,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Parser dockerfile
+              App dockerfile
             
           </span>
         </div>
@@ -538,28 +545,7 @@
         
   
   <span class="md-ellipsis">
-    Docker compose
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../fastapi_dockerfile/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Fastapi dockerfile
+    Docker Compose Configuration
   </span>
   
 
@@ -582,17 +568,40 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Parser dockerfile
+    App dockerfile
   </span>
   
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dockerfile-parse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parsing app dockerfile
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -622,6 +631,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -639,8 +650,7 @@
   
 
 
-  <h1>Parser dockerfile</h1>
-
+<h1 id="app-dockerfile">App dockerfile</h1>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">FROM</span> <span class="n">python</span><span class="p">:</span><span class="mf">3.12</span><span class="o">-</span><span class="n">slim</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">WORKDIR</span> <span class="o">/</span><span class="n">task1</span>
